@@ -77,9 +77,9 @@ public class Hilo extends Thread {
 			mutex.release();
 			
 			panel.escribir_mensaje("Usando panel el hilo " + identificator);
-			panel.escribir_mensaje("Matrix A = " + Ma.printMatrix());
-			panel.escribir_mensaje("Matrix B = " + Mb.printMatrix());
-			panel.escribir_mensaje("Matrix C = " + Mresult.printMatrix());
+			panel.escribir_mensaje("Matrix A = \n" + Ma.printMatrix());
+			panel.escribir_mensaje("Matrix B = \n" + Mb.printMatrix());
+			panel.escribir_mensaje("Matrix C = \n" + Mresult.printMatrix());
 			panel.escribir_mensaje("Terminando de usar panel el hilo " + identificator);
 			
 			try {
