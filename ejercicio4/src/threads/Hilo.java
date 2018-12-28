@@ -38,15 +38,13 @@ public class Hilo extends Thread {
 	@Override
 	public void run() {
 		
-		int result = 0;
-		
 		for (int i = 0; i < CANT_THREADS; i++) {
-			if(identificator - 1 != i) mailboxes[i].send(n);
+			if(i != identificator - 1) mailboxes[i].send(n);
 		}
 		
 		for (int i = 0; i < CANT_THREADS - 1; i++) {
-			result = (Integer) mailboxes[identificator - 1].receive();
-			if(result < min) result = min;
+			int result = (Integer) mailboxes[identificator - 1].receive();
+			if(result < min) min = result;
 		}
 		
 		if(identificator != 1) sharedScreen.receive();
@@ -54,7 +52,7 @@ public class Hilo extends Thread {
 		System.out.println("Hilo Nº " + identificator + " con número = " + n);
 		System.out.println("Valor mínimo = " + min + "\n\n");
 		
-		sharedScreen.send("Next");
+		sharedScreen.send("turno");
 		
 	}
 	

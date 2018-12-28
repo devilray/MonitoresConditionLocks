@@ -18,8 +18,12 @@ public class Programa {
 	/*-----------------------------------------
 	 * ____________GLOBAL VARIABLES____________
 	 ----------------------------------------*/
+	private static MailBox[] buzones = new MailBox[CANT_THREADS];
+	private static MailBox sharedScreen = new MailBox();
+	private static Hilo[] hilos = new Hilo[CANT_THREADS];
+	
 	public static int newRandomNumber() {
-		return new Random().nextInt(4) + 1;
+		return new Random().nextInt(4)+1; //50 + 1 OR 100 + 1
 	}
 	
 	/*-----------------------------------------
@@ -27,14 +31,12 @@ public class Programa {
 	 ----------------------------------------*/
 	public static void main(String[] args) {
 		
-		MailBox[] mailBoxes = new MailBox[CANT_THREADS];
-		MailBox sharedScreen = new MailBox();
+		for (int i = 0; i < buzones.length; i++) {
+			buzones[i] = new MailBox();
+		}
 		
-		Hilo[] hilos = new Hilo[CANT_THREADS];
-		
-		for (int i = 0; i < CANT_THREADS; i++) {
-			mailBoxes[i] = new MailBox();
-			hilos[i] = new Hilo(i + 1, newRandomNumber(), mailBoxes, sharedScreen);
+		for (int i = 0; i < hilos.length; i++) {
+			hilos[i] = new Hilo(i + 1, newRandomNumber(), buzones, sharedScreen);
 		}
 		
 		for (int i = 0; i < hilos.length; i++) {
