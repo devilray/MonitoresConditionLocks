@@ -2,6 +2,11 @@ package main;
 
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Clase que representa a los atributos compartidos entre todos los hilos y que están alojados en memoria global compartida.
+ * @author Juan José Marín Peralta
+ * @version 3.0
+ */
 public class SharedMemory {
 
 	/**
