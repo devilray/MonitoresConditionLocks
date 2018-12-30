@@ -3,6 +3,7 @@ package threads;
 import main.Matrix;
 import paneles.Panel;
 
+import static main.SharedMemory.*;
 import static main.Programa.*;
 
 /**
