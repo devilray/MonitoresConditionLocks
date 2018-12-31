@@ -1,5 +1,9 @@
 package main;
 
+import static main.SharedMemory.*;
+
+import threads.Hilo;
+
 /**
  * 
  * Desarrollar un programa concurrente en Java para resolver el problema siguiente: 
@@ -24,7 +28,23 @@ public class Programa {
 
 	public static void main(String[] args) {
 		
+		Hilo[] hilos = new Hilo[NUMERO_PROCESOS];
 		
+		for (int i = 0; i < hilos.length; i++) {
+			hilos[i] = new Hilo(i+1);
+		}
+		
+		for (Hilo hilo : hilos) {
+			hilo.start();
+		}
+		
+		for (Hilo hilo : hilos) {
+			try {
+				hilo.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 
