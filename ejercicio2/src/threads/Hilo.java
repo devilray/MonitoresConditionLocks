@@ -11,7 +11,7 @@ import static main.Programa.*;
  * @author juanico
  *
  */
-public class Hilo extends Thread /*implements Runnable*/ {
+public class Hilo extends Thread {
 
 	private final int identificator;
 	private Matrix Ma, Mb, Mresult;
@@ -60,16 +60,15 @@ public class Hilo extends Thread /*implements Runnable*/ {
 			
 			try {
 				panelesLibres.acquire();
-				mutex.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			/*
+			
 			try {
 				mutex.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
+			}
 			while(isPanelLibre[aux] == false) aux++;
 			
 			Panel panel = paneles[aux];
