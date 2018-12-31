@@ -11,7 +11,7 @@ import static main.Programa.*;
  * @author juanico
  *
  */
-public class Hilo extends Thread {
+public class Hilo extends Thread /*implements Runnable*/ {
 
 	private final int identificator;
 	private Matrix Ma, Mb, Mresult;

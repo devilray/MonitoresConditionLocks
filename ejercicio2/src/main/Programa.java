@@ -17,6 +17,7 @@ public class Programa {
 	 */
 	public static boolean[] isPanelLibre = new boolean[DIM_MATRIX];
 	
+	//private static Hilo[] hilo = new Hilo[CANT_THREADS];
 	private static Thread[] hilos = new Thread[CANT_THREADS];
 	
 	/*-----------------------------------------
@@ -31,7 +32,9 @@ public class Programa {
 		}
 		
 		for (int i = 0; i < CANT_THREADS; i++) {
-			hilos[i] = new Hilo(i + 1); 
+			/*hilo[i] = new Hilo(i+1);
+			hilos[i] = new Thread(hilo[i]); */
+			hilos[i] = new Hilo(i+1);
 		}
 		
 		for (Thread threads : hilos) {
