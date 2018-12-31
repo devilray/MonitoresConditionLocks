@@ -66,13 +66,14 @@ public class Programa {
 		Thread prod = new Thread(hm);
 		
 		suma.start();
-		prod.start();
 		
 		try {
 			suma.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
+		prod.start();
 		
 		try {
 			prod.join();
