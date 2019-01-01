@@ -7,9 +7,9 @@ import static main.SharedMemory.*;
 import static main.Programa.*;
 
 /**
- * 
- * @author juanico
- *
+ * Clase que representa los procesos que van a escribir en cada panel.
+ * @author Juan José Marín Peralta
+ * @version 3.0
  */
 public class Hilo extends Thread {
 
@@ -17,8 +17,9 @@ public class Hilo extends Thread {
 	private Matrix Ma, Mb, Mresult;
 	
 	/**
-	 * 
-	 * @param identificator
+	 * Constuye un proceso con un identificador único para cada Hilo.
+	 * @see java.lang.Thread
+	 * @param id Representa un número entero que identifica cada hilo y el cuál es inmutable.
 	 */
 	public Hilo(int identificator) {
 		this.identificator = identificator;
@@ -27,8 +28,8 @@ public class Hilo extends Thread {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Método para saber el identificador único e inmutable de cada hilo en su creación.
+	 * @return ID único para cada hilo.
 	 */
 	public int getIdentificator() {
 		return identificator;
@@ -52,52 +53,72 @@ public class Hilo extends Thread {
 	public void run() {
 		
 		for (int i = 0; i < DIM_MATRIX; i++) {
+			//variable auxiliar para controlar cada panel ocupado
 			int aux = 0;
 			
+			//generamos las matrices de valores aleatorios de A y de B
 			Ma.newRandomMatrix();
 			Mb.newRandomMatrix();
+			
+			//guardamos en C el resultado de sumar A y B
 			Mresult = Ma.sumMatrix(Mb);
 			
+			//begin sección crítica.
+			
+			//wait() semáforo general que representa el semáforo para los paneles libres
 			try {
 				panelesLibres.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
+			//wait() semáforo binario que representa un semáforo que realiza la exclusión mutua.
 			try {
 				mutex.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+			//indicamos en cada panel que se está usando y que éste no está libre
 			while(isPanelLibre[aux] == false) aux++;
 			
 			Panel panel = paneles[aux];
 			isPanelLibre[aux] = false;
 			
+			//signal() de semáforo binario mutex
 			mutex.release();
 			
+			//escribir mensaje en cada uno de los paneles
 			panel.escribir_mensaje("Usando panel el hilo " + identificator);
 			panel.escribir_mensaje("Matrix A = \n" + Ma.printMatrix());
 			panel.escribir_mensaje("Matrix B = \n" + Mb.printMatrix());
 			panel.escribir_mensaje("Matrix C = \n" + Mresult.printMatrix());
 			panel.escribir_mensaje("Terminando de usar panel el hilo " + identificator);
 			
+			//wait() de semáforo binario mutex
 			try {
 				mutex.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
+			//Indicamos que cada panel que se acaba de utilizar vuelve a estar disponible para el siguiente hilo.
 			isPanelLibre[aux] = true;
 			
+			//signal() de semáforo binario mutex
 			mutex.release();
+			
+			//signal() de cada uno de los tres semáforos binarios para escribir en cada uno de los tres paneles.
 			panelesLibres.release();
+			
 			
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			//end sección crítica
+			
 		}
 		
 	}
