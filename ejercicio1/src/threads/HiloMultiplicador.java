@@ -4,10 +4,18 @@ import static main.SharedMemory.*;
 
 import java.util.Random;
 
+/**
+ * Proceso que representa una multiplicación de matrices. Genera una matriz aleatoria e imprime por pantalla el resultado de sumarla.
+ * @author Juan José Marín Peralta
+ * @version 3.0
+ */
 public class HiloMultiplicador implements Runnable {
 
 	private int[][] m, result;
 	
+	/**
+	 * Construye una matriz aleatoria de dimensiones 3x3.
+	 */
 	public HiloMultiplicador() {
 		
 		this.m = new int[DIM_MATRIX][DIM_MATRIX];
@@ -21,6 +29,12 @@ public class HiloMultiplicador implements Runnable {
 		
 	}
 	
+	/**
+	 * Ejecutamos el hilo. 
+	 * 1º Hará la multiplicación de las matrices y la guardará en una variable auxiliar.
+	 * 2º Mostrará por pantalla en Exclusión Mutua la matriz original.
+	 * 3º Mostrará por pantalla en Exclusión Mutua la matriz resultante de multiplicar las matrices originales.
+	 */
 	@Override
 	public void run() {
 		

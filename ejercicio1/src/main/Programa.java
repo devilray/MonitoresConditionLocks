@@ -59,22 +59,27 @@ public class Programa {
 	
 	public static void main(String[] args) {
 		
+		//Creamos los hilos
 		HiloSumador hs = new HiloSumador();
 		HiloMultiplicador hm = new HiloMultiplicador();
 		
 		Thread suma = new Thread(hs);
 		Thread prod = new Thread(hm);
 		
+		//iniciamos el hilo sumador primero...
 		suma.start();
 		
+		//... y esperamos a que termine su ejecución
 		try {
 			suma.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
+		//iniciamos el hilo multiplicador
 		prod.start();
 		
+		//esperamos que termine su ejecución por completo de forma ordenada
 		try {
 			prod.join();
 		} catch (InterruptedException e) {

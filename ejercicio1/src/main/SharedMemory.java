@@ -26,6 +26,8 @@ public class SharedMemory {
 	
 	/**
 	 * Método global que muestra por pantalla una matriz que se le pasa por parámetro.
+	 * La impresión por pantalla se realizará en exclusión mutua debido a que el Recurso
+	 * no Compartible es la pantalla.
 	 * @param m Matriz a imprimir por pantalla.
 	 */
 	public static void show(int[][] m) {
