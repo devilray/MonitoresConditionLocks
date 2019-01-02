@@ -5,7 +5,7 @@ import static main.SharedMemory.*;
 import java.util.Random;
 
 /**
- * Proceso que representa una multiplicación de matrices. Genera una matriz aleatoria e imprime por pantalla el resultado de sumarla.
+ * Proceso que representa una multiplicación de matrices. Genera una matriz aleatoria e imprime por pantalla el resultado de multiplicarla.
  * @author Juan José Marín Peralta
  * @version 3.0
  */
