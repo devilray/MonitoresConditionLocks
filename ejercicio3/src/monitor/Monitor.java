@@ -25,7 +25,7 @@ public class Monitor {
 	
 	/**
 	 * Método sincronizado que realiza la entrada al monitor para obtener su valor
-	 * @param hilo Proceso que va a entrar el monitor.
+	 * @param h Proceso que va a entrar el monitor.
 	 */
 	synchronized public void inMonitor(Hilo h) {
 		int result = 0;
@@ -36,7 +36,7 @@ public class Monitor {
 	
 	/**
 	 * Método sincronizado que va a imprimir por pantalla a través del monitor.
-	 * @param hilo Proceso que va a salir el monitor.
+	 * @param h Proceso que va a salir el monitor.
 	 */
 	synchronized public void outMonitor(Hilo h) {
 		while(!threadGotValue)
