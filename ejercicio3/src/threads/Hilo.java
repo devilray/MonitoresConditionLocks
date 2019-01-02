@@ -38,6 +38,9 @@ public class Hilo extends Thread {
 		return value;
 	}
 
+	/**
+	 * Ejecutamos el hilo para entrar al monitor.
+	 */
 	@Override
 	public void run() {
 		

@@ -28,16 +28,19 @@ public class Programa {
 
 	public static void main(String[] args) {
 		
+		//Creamos los hilos
 		Hilo[] hilos = new Hilo[NUMERO_PROCESOS];
 		
 		for (int i = 0; i < hilos.length; i++) {
 			hilos[i] = new Hilo(i+1);
 		}
 		
+		//iniciamos los hilos
 		for (Hilo hilo : hilos) {
 			hilo.start();
 		}
 		
+		//ejecutamos los hilos
 		for (Hilo hilo : hilos) {
 			try {
 				hilo.join();
