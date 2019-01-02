@@ -36,18 +36,7 @@ public class Hilo extends Thread {
 	}
 	
 	/**
-	 * run-> Pone en marcha el hilo.
-	 * CONDICIONES DE SINCRONIZACION
-	 * -Que los hilos no usen el mismo panel al mismo tiempo
-	 * 
-	 * EXLUSION MUTUA:
-	 * La exlusion mutua de la pantalla se comprueba poniendo a false la posicion correspondiente del array de
-	 * booleanos. De esta forma otro que venga por detras no va a coger el mismo panel.
-	 * La exlusion mutua del array de booleanos se garantiza utilizando un semaforo mutex binario que 
-	 * se bloquee cuando eestamos accediendo a el. De esta forma cuando dos hilos entran al array al buffer 
-	 * al mismo tiempo evitamos que se produzca una situacion en la que dos hilos puedan acceder a la seccion
-	 * critica al mismo tiempo.
-	 * 
+	 * Ejecutamos el hilo para que genere las matrices y realice la suma.
 	 */
 	@Override
 	public void run() {
