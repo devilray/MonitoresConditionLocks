@@ -16,7 +16,7 @@ public class Hilo extends Thread {
 	
 	/**
 	 * Crea un proceso con identificador único.
-	 * @param identificador Valor numérica e inmutable que identifica a cada proceso.
+	 * @param identificator Valor numérica e inmutable que identifica a cada proceso.
 	 */
 	public Hilo(int identificator) {
 		this.identificator = identificator;
