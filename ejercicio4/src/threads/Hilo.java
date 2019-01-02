@@ -1,17 +1,30 @@
 package threads;
 
-import messagepassing.MailBox;
+import messagepassing.CommunicationScheme;
 
 import static main.Programa.*;
 
+/**
+ * Clase que representa un proceso que va a utilizar el buzón.
+ * @author Juan José Marín Peralta
+ * @version 3.0
+ */
 public class Hilo extends Thread {
 
 	private final int identificator;
 	private int n, min;
-	private MailBox[] mailboxes;
-	private MailBox sharedScreen;
+	private CommunicationScheme[] mailboxes;
+	private CommunicationScheme sharedScreen;
 	
-	public Hilo(int identificator, int n, MailBox[] mailboxes, MailBox sharedScreen) {
+	/**
+	 * Crea un proceso con número de identificación único e inmutable, valor del hilo y esquema de comunicación a emplear, en nuestro caso, buzones para 
+	 * paso de mensajes asíncrono.
+	 * @param identificator Identificador numérico único e inmutable que representa a cada proceso.
+	 * @param n Valor que maneja cada uno de los procesos.
+	 * @param mailboxes Esquema que envía o recibe del Buzón central los mensajes para que los procese cada hilo.
+	 * @param sharedScreen Buzón que envía o recibe los mensajes a la pantalla (Recurso No Compartible) donde se van a imprimir todos los hilos. 
+	 */
+	public Hilo(int identificator, int n, CommunicationScheme[] mailboxes, CommunicationScheme sharedScreen) {
 		this.identificator = identificator;
 		this.mailboxes = mailboxes;
 		this.sharedScreen = sharedScreen;
@@ -20,20 +33,7 @@ public class Hilo extends Thread {
 	}
 	
 	/**
-	 * Run() -> Los hilos mandan su valor a todos los demas, pues este valor es el que queremos que sepan el resto de hilos. 
-	 * Por lo tanto se lo mando a los otros 29, con la excepcion del emisor (no hace falta que el hilo se mande su valor
-	 * a sí mismo).
-	 * Posteriormente cada hilo irá recibiendo el valor de los demás y dicho valor lo voy almacenando en una variable 
-	 * auxiliar para ir comparándolo con el minimo provisional.
-	 * Una vez que ya tengamos el valor minimo de todos los recibidos tendremos que imprimirlo por pantalla. Sin embargo
-	 * hemos de hacerlo correctamente, pues la pantalla es un recurso comparido al cual tenemos que acceder en exlusion
-	 * mutua. Lo ideal es que cuando un hilo termine de calcular el minimo use la pantalla, sin embargo, no sabemos cual va
-	 * a terminar su ejecución primero, pues todos se ejecutan de forma concurrente. Algun hilo tiene que ser el primero 
-	 * en usar la pantalla (de lo contrario se podria producir un deadlock) y el hilo elegido es el que tiene el id 1.
-	 * Todos los hilos se van a poner a esperar a que la pantalla se quede libre excepto el que tenga el id 1, que es el
-	 * unico que no quedará bloqueado. Al final cuando se imprime su valor y el minimo, dicho hilo deja libre la pantalla, 
-	 * la cual será cogida por otro hilo de los que estaban bloqueados.
-	 * Siempre se imprime primero el hilo 1 por esta razón.
+	 * Ejecuta los hilos para el paso de mensajes.
 	 */
 	@Override
 	public void run() {
