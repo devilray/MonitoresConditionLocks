@@ -21,7 +21,8 @@ public class Monitor {
 	
 	synchronized public void up(int cant) {
 		comp += cant;
-		notifyAll();
+		notify();
+		//notifyAll();
 		System.out.println("Variable = " + comp);
 	}
 	
